@@ -135,14 +135,14 @@ async def get_contact_resource(
     contact_service = container.get(ContactService)
     try:
         contact_id_int = int(contact_id)
-        contact = await contact_service.get_contact_by_id(contact_id_int)
-
-        if not contact:
-            return f"Контакт с ID={contact_id} не найден"
-
-        return _format_contact_for_display(contact)
     except ValueError:
         return f"Некорректный ID контакта: {contact_id}"
+    contact = await contact_service.get_contact_by_id(contact_id_int)
+
+    if not contact:
+        return f"Контакт с ID={contact_id} не найден"
+
+    return _format_contact_for_display(contact)
 
 
 def _format_contact_for_display(contact: Contact) -> str:

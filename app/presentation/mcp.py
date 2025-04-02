@@ -23,18 +23,6 @@ def create_mcp_server(mcp_server: BitrixMCPServer) -> FastMCP:
 
     :return: Настроенный экземпляр MCP сервера
     """
-    mcp_server.add_prompt(
-        lambda query: f"Выполните поиск контактов по запросу: {query}",
-        name="search_contacts_prompt",
-        description="Подсказка для поиска контактов",
-    )
-
-    mcp_server.add_prompt(
-        lambda query: f"Найдите активные сделки, соответствующие запросу: {query}",
-        name="search_deals_prompt",
-        description="Подсказка для поиска сделок",
-    )
-
     register_contact_handlers(mcp_server)
     register_deal_handlers(mcp_server)
 
@@ -44,5 +32,12 @@ def create_mcp_server(mcp_server: BitrixMCPServer) -> FastMCP:
 server = create_mcp_server()
 
 
-def main():
+def main() -> None:
+    """
+    Точка входа для запуска MCP сервера.
+
+    Эта функция вызывает метод ``run()`` на предварительно
+    сконфигурированном экземпляре сервера ``FastMCP``,
+    запуская его для обработки входящих запросов.
+    """
     server.run()
