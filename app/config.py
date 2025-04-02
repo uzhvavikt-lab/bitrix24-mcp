@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     # Настройки Bitrix24
     BITRIX_WEBHOOK_URL: str = os.getenv(
         "BITRIX_WEBHOOK_URL",
-        "https://b24-gnl321.bitrix24.ru/rest/8/58t8otwl5jvg9j79/",
+        "https://your-domain.bitrix24.ru/rest/1/yoursecretcode/",
     )
 
     # Настройки MCP-сервера
