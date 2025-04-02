@@ -1,3 +1,3 @@
-from app.presentation.mcp import main
+from src.presentation.mcp import main
 
 main()

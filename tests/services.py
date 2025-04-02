@@ -8,9 +8,9 @@ import asyncio
 import sys
 from typing import Any
 
-from app.application.services import ContactService, DealService
-from app.infrastructure.ioc import container
-from app.infrastructure.logging.logger import logger
+from src.application.services import ContactService, DealService
+from src.infrastructure.ioc import container
+from src.infrastructure.logging.logger import logger
 
 
 async def test_contact_service() -> dict[str, Any]:
