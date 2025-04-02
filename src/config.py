@@ -8,7 +8,9 @@ class Settings(BaseSettings):
     """
 
     # Настройки Bitrix24
-    BITRIX_WEBHOOK_URL: str = Field()
+    BITRIX_WEBHOOK_URL: str = Field(
+        "https://your-domain.bitrix24.ru/rest/1/yoursecretcode/",
+    )
 
     # Другие настройки
     LOG_LEVEL: str = Field("INFO")

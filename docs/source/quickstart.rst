@@ -2,7 +2,7 @@ Quick Start
 ===========
 
 Configuration
-------------
+============
 
 The server requires your Bitrix24 webhook URL. You can set it in one of two ways:
 
@@ -22,7 +22,7 @@ The server requires your Bitrix24 webhook URL. You can set it in one of two ways
    # LOG_LEVEL=INFO
 
 Running the Server
-----------------
+================
 
 After installation and configuration, start the MCP server:
 
@@ -33,7 +33,7 @@ After installation and configuration, start the MCP server:
    mcp-server-b24
 
 Testing the Installation
-----------------------
+=====================
 
 To verify basic Bitrix24 API integration, run the test script:
 
