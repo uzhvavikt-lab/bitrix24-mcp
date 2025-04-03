@@ -97,7 +97,7 @@ class BitrixDate(str):
 
         :return: Объект datetime
         """
-        return datetime.strptime(str(self), "%Y-%m-%d")
+        return datetime.strptime(str(self), "%Y-%m-%d").replace(tzinfo=datetime.UTC)
 
 
 class BitrixDateTime(str):
@@ -123,4 +123,6 @@ class BitrixDateTime(str):
 
         :return: Объект datetime
         """
-        return datetime.strptime(str(self), "%Y-%m-%d %H:%M:%S")
+        return datetime.strptime(
+            str(self), "%Y-%m-%d %H:%M:%S %z",
+        ).replace(tzinfo=datetime.UTC)
