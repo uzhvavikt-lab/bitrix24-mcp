@@ -4,13 +4,14 @@
 Отвечает за конфигурацию и запуск MCP сервера для Bitrix24.
 """
 
+from mcp.server.fastmcp import FastMCP
+
 from src.infrastructure.ioc import container
 from src.infrastructure.mcp.handlers import (
     register_contact_handlers,
     register_deal_handlers,
 )
 from src.infrastructure.mcp.server import BitrixMCPServer
-from mcp.server.fastmcp import FastMCP
 
 
 @container.autowire

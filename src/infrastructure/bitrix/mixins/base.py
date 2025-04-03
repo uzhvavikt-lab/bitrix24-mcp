@@ -8,8 +8,9 @@
 from collections.abc import Awaitable, Callable
 from typing import Any
 
-from src.infrastructure.logging.logger import logger
 from fast_bitrix24 import Bitrix
+
+from src.infrastructure.logging.logger import logger
 
 
 class BaseMixin[T_Result]:

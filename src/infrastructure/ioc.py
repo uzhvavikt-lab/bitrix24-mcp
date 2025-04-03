@@ -4,9 +4,10 @@
 Предоставляет единую точку инициализации и получения зависимостей.
 """
 
+from wireup import create_container
+
 from src import application
 from src.config import settings
-from wireup import create_container
 
 from .bitrix import repository_factory
 from .mcp import server
