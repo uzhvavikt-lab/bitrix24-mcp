@@ -11,8 +11,9 @@ from pathlib import Path
 from typing import Any
 
 import structlog
-from src.config import settings
 from structlog.stdlib import LoggerFactory
+
+from src.config import settings
 
 logging.getLogger("fast_bitrix24").addHandler(logging.StreamHandler())
 logging.getLogger("fast_bitrix24").setLevel(logging.WARNING)

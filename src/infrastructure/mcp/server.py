@@ -6,9 +6,10 @@
 
 from collections.abc import Awaitable, Callable
 
-from src.infrastructure.logging.logger import logger
 from mcp.server.fastmcp import FastMCP
 from wireup import service
+
+from src.infrastructure.logging.logger import logger
 
 
 @service

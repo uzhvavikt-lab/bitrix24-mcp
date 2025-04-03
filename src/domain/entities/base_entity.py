@@ -68,7 +68,7 @@ class BitrixEntity:
             if hasattr(self, entity_field):
                 data[bitrix_field] = getattr(self, entity_field)
 
-        return {**data, **{k: v for k, v in self.additional_fields.items()}}
+        return {**data, **dict(self.additional_fields.items())}
 
     def to_str_json(self) -> str:
         """

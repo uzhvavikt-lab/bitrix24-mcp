@@ -6,9 +6,10 @@
 
 from typing import TYPE_CHECKING, cast
 
+from wireup import service
+
 from src.domain.entities.contact import Contact
 from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
-from wireup import service
 
 if TYPE_CHECKING:
     from src.infrastructure.bitrix.bitrix_contact_repository import (

@@ -5,6 +5,9 @@
 
 from typing import Annotated
 
+from fast_bitrix24 import Bitrix
+from wireup import Inject, service
+
 from src.domain.interfaces.base_repository import BitrixRepository
 from src.infrastructure.bitrix.bitrix_contact_repository import (
     BitrixContactRepository,
@@ -13,8 +16,6 @@ from src.infrastructure.bitrix.bitrix_deal_repository import (
     BitrixDealRepository,
 )
 from src.infrastructure.logging.logger import logger
-from fast_bitrix24 import Bitrix
-from wireup import Inject, service
 
 
 class BitrixRepositoryFactory:

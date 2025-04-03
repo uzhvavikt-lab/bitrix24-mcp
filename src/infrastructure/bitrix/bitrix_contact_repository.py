@@ -7,10 +7,11 @@
 
 from typing import Any, ClassVar
 
+from fast_bitrix24 import Bitrix
+
 from src.domain.entities.contact import Contact
 from src.domain.interfaces.base_repository import BitrixRepository
 from src.infrastructure.logging.logger import logger
-from fast_bitrix24 import Bitrix
 
 from .mixins import (
     BitrixBatchOperationsMixin,
