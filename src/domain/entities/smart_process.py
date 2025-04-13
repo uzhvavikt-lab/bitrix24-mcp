@@ -1,5 +1,4 @@
-"""
-Модуль с сущностью смарт-процесса Bitrix24.
+"""Модуль с сущностью смарт-процесса Bitrix24.
 
 Содержит доменную модель смарт-процесса со всеми необходимыми атрибутами.
 """
@@ -13,8 +12,7 @@ from src.domain.entities.base_entity import BitrixEntity
 
 @dataclass
 class SmartProcess(BitrixEntity):
-    """
-    Сущность смарт-процесса в CRM Bitrix24.
+    """Сущность смарт-процесса в CRM Bitrix24.
 
     Представляет доменную модель смарт-процесса со всеми необходимыми атрибутами.
     """
@@ -50,8 +48,7 @@ class SmartProcess(BitrixEntity):
         data: dict[str, Any],
         contact_ids: list[int] | None = None,
     ) -> Self:
-        """
-        Создание смарт-процесса из данных Bitrix24.
+        """Создание смарт-процесса из данных Bitrix24.
 
         :param data: Словарь с данными из API Bitrix24
         :param contact_ids: Список идентификаторов контактов
@@ -67,8 +64,7 @@ class SmartProcess(BitrixEntity):
         return smart_process
 
     def _convert_types(self) -> None:
-        """
-        Преобразование строковых значений в соответствующие типы.
+        """Преобразование строковых значений в соответствующие типы.
 
         API Битрикса возвращает все в виде строк,
         поэтому нужно провести корректное преобразование.
@@ -106,16 +102,14 @@ class SmartProcess(BitrixEntity):
             ]
 
     def is_active(self) -> bool:
-        """
-        Проверка, является ли смарт-процесс активным.
+        """Проверка, является ли смарт-процесс активным.
 
         :return: True, если смарт-процесс активен, иначе False
         """
         return True
 
     def get_element_type(self) -> str:
-        """
-        Получение типа элемента для API запросов.
+        """Получение типа элемента для API запросов.
 
         :return: Строка с типом элемента для API
         """

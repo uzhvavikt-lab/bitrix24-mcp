@@ -1,5 +1,4 @@
-"""
-Модуль с обработчиками MCP для сделок.
+"""Модуль с обработчиками MCP для сделок.
 
 Содержит обработчики инструментов и ресурсов для работы со сделками Bitrix24.
 """
@@ -15,8 +14,7 @@ from src.infrastructure.mcp.server import BitrixMCPServer
 
 
 def register_deal_handlers(mcp_server: BitrixMCPServer) -> None:
-    """
-    Регистрация обработчиков для работы со сделками.
+    """Регистрация обработчиков для работы со сделками.
 
     :param mcp_server: Экземпляр MCP сервера
     """
@@ -56,8 +54,7 @@ def register_deal_handlers(mcp_server: BitrixMCPServer) -> None:
 async def get_deal(
     deal_id: int,
 ) -> str:
-    """
-    Получение сделки по ID (инструмент).
+    """Получение сделки по ID (инструмент).
 
     :param deal_id: Идентификатор сделки
     :return: JSON-строка с данными сделки или сообщение об ошибке
@@ -75,8 +72,7 @@ async def list_deals(
     company_id: int | None = None,
     limit: int | None = None,
 ) -> str:
-    """
-    Получение списка сделок (инструмент).
+    """Получение списка сделок (инструмент).
 
     :param active_only: Только активные сделки
     :param contact_id: Идентификатор контакта для фильтрации (опционально)
@@ -115,8 +111,7 @@ async def update_deal_stage(
     deal_id: int,
     stage_id: str,
 ) -> str:
-    """
-    Обновление стадии сделки (инструмент).
+    """Обновление стадии сделки (инструмент).
 
     :param deal_id: Идентификатор сделки
     :param stage_id: Идентификатор новой стадии
@@ -139,8 +134,7 @@ async def update_deal_stage(
 async def get_deal_resource(
     deal_id: str,
 ) -> str:
-    """
-    Получение данных сделки в виде ресурса.
+    """Получение данных сделки в виде ресурса.
 
     :param deal_id: Идентификатор сделки
     :param deal_service: Сервис для работы со сделками (внедряется через DI)
@@ -160,8 +154,7 @@ async def get_deal_resource(
 
 
 async def get_active_deals_resource() -> str:
-    """
-    Получение списка активных сделок в виде ресурса.
+    """Получение списка активных сделок в виде ресурса.
 
     :param limit: Максимальное количество сделок
     :return: Строковое представление списка сделок
@@ -184,8 +177,7 @@ async def get_active_deals_resource() -> str:
 
 
 def _format_deal_for_display(deal: Deal) -> str:
-    """
-    Форматирование сделки для читаемого отображения.
+    """Форматирование сделки для читаемого отображения.
 
     :param deal: Объект сделки
     :return: Форматированная строка с данными сделки

@@ -1,5 +1,4 @@
-"""
-Модуль с базовыми классами сущностей Bitrix24.
+"""Модуль с базовыми классами сущностей Bitrix24.
 
 Содержит абстрактный базовый класс для всех сущностей Bitrix24.
 """
@@ -11,8 +10,7 @@ from typing import Any, ClassVar, Self
 
 @dataclass
 class BitrixEntity:
-    """
-    Базовый класс для всех сущностей Bitrix24.
+    """Базовый класс для всех сущностей Bitrix24.
 
     Содержит общие атрибуты и методы для всех сущностей Bitrix24.
     """
@@ -26,8 +24,7 @@ class BitrixEntity:
 
     @classmethod
     def from_bitrix(cls, data: dict[str, Any]) -> Self:
-        """
-        Создание объекта из данных Bitrix24.
+        """Создание объекта из данных Bitrix24.
 
         :param data: Словарь с данными из API Bitrix24
         :return: Объект сущности
@@ -55,8 +52,7 @@ class BitrixEntity:
         return cls(**entity_data)
 
     def to_bitrix(self) -> dict[str, Any]:
-        """
-        Преобразование в формат для API Bitrix24.
+        """Преобразование в формат для API Bitrix24.
 
         :return: Словарь для отправки в API
         """
@@ -71,8 +67,7 @@ class BitrixEntity:
         return {**data, **dict(self.additional_fields.items())}
 
     def to_str_json(self) -> str:
-        """
-        Преобразует объект в json строку.
+        """Преобразует объект в json строку.
 
         :return: Словарь с атрибутами объекта
         """

@@ -1,11 +1,10 @@
-"""
-Модуль с определением типов данных Bitrix24.
+"""Модуль с определением типов данных Bitrix24.
 
 Содержит классы, представляющие различные типы данных из Bitrix24 API.
 """
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any, Self
 
 type BitrixID = int
@@ -16,8 +15,7 @@ type BitrixCategoryID = int
 
 @dataclass
 class BitrixMultiField:
-    """
-    Представление мультиполей Bitrix24 (EMAIL, PHONE, WEB и т.д.).
+    """Представление мультиполей Bitrix24 (EMAIL, PHONE, WEB и т.д.).
 
     Пример:
     {
@@ -35,8 +33,7 @@ class BitrixMultiField:
 
     @classmethod
     def from_bitrix(cls, data: dict[str, Any]) -> "BitrixMultiField":
-        """
-        Создание объекта из данных Bitrix24.
+        """Создание объекта из данных Bitrix24.
 
         :param data: Словарь с данными из API Bitrix24
         :return: Объект мультиполя
@@ -49,8 +46,7 @@ class BitrixMultiField:
         )
 
     def to_bitrix(self) -> dict[str, Any]:
-        """
-        Преобразование в формат для API Bitrix24.
+        """Преобразование в формат для API Bitrix24.
 
         :return: Словарь для отправки в API
         """
@@ -63,9 +59,8 @@ class BitrixMultiField:
             result["ID"] = str(self.id)
         return result
 
-    def __getitem__(self, key: str) -> Any:
-        """
-        Поддержка словарного доступа к полям объекта.
+    def __getitem__(self, key: str) -> str | int | None:
+        """Поддержка словарного доступа к полям объекта.
 
         :param key: Ключ поля
         :return: Значение поля
@@ -75,16 +70,13 @@ class BitrixMultiField:
 
 
 class BitrixDate(str):
-    """
-    Дата в формате Bitrix24 (YYYY-MM-DD).
-    """
+    """Дата в формате Bitrix24 (YYYY-MM-DD)."""
 
     __slots__ = ()  # Определение пустого кортежа слотов
 
     @classmethod
     def from_datetime(cls, dt: datetime) -> Self:
-        """
-        Создать BitrixDate из объекта datetime.
+        """Создать BitrixDate из объекта datetime.
 
         :param dt: Объект datetime
         :return: BitrixDate в формате YYYY-MM-DD
@@ -92,25 +84,23 @@ class BitrixDate(str):
         return cls(dt.strftime("%Y-%m-%d"))
 
     def to_datetime(self) -> datetime:
-        """
-        Преобразовать в объект datetime.
+        """Преобразовать в объект datetime.
 
         :return: Объект datetime
         """
-        return datetime.strptime(str(self), "%Y-%m-%d").replace(tzinfo=datetime.UTC)
+        return datetime.strptime(str(self), "%Y-%m-%d").replace(
+            tzinfo=UTC,
+        )
 
 
 class BitrixDateTime(str):
-    """
-    Дата и время в формате Bitrix24 (YYYY-MM-DD HH:MM:SS).
-    """
+    """Дата и время в формате Bitrix24 (YYYY-MM-DD HH:MM:SS)."""
 
     __slots__ = ()
 
     @classmethod
     def from_datetime(cls, dt: datetime) -> Self:
-        """
-        Создать BitrixDateTime из объекта datetime.
+        """Создать BitrixDateTime из объекта datetime.
 
         :param dt: Объект datetime
         :return: BitrixDateTime в формате YYYY-MM-DD HH:MM:SS
@@ -118,11 +108,11 @@ class BitrixDateTime(str):
         return cls(dt.strftime("%Y-%m-%d %H:%M:%S"))
 
     def to_datetime(self) -> datetime:
-        """
-        Преобразовать в объект datetime.
+        """Преобразовать в объект datetime.
 
         :return: Объект datetime
         """
         return datetime.strptime(
-            str(self), "%Y-%m-%d %H:%M:%S %z",
-        ).replace(tzinfo=datetime.UTC)
+            str(self),
+            "%Y-%m-%d %H:%M:%S %z",
+        ).replace(tzinfo=UTC)

@@ -7,8 +7,6 @@ requires-python = ">=3.12"
 dependencies = [
   "fast-bitrix24>=1.8.4",
   "mcp[cli]>=1.4.1",
-  "pydantic>=2.10.6",
-  "pydantic-settings>=2.8.1",
   "structlog>=25.2.0",
   "wireup>=0.16.0",
 ]
@@ -46,33 +44,31 @@ select = ["ALL"]
 exclude = ['tests/*']
 
 ignore = [
-  "D100",
-  "D212",
-  "D200",
-  "ANN401",
-  "TRY300",
-  "TRY003",
-  "FBT001",
-  "FBT002",
-  "FBT003",
-  "ARG002",
-  "D106",
-  "BLE001",
-  "D107",
-  "D205",
-
-  "EM102",
+  "A003",    # flake8-builtins - class attribute {name} is shadowing a python builtin
+  "B010",    # flake8-bugbear - do not call setattr with a constant attribute value
+  "D100",    # pydocstyle - missing docstring in public module
+  "D101",    # pydocstyle - missing docstring in public class
+  "D102",    # pydocstyle - missing docstring in public method
+  "D103",    # pydocstyle - missing docstring in public function
+  "D104",    # pydocstyle - missing docstring in public package
+  "D105",    # pydocstyle - missing docstring in magic method
+  "D106",    # pydocstyle - missing docstring in public nested class
+  "D107",    # pydocstyle - missing docstring in __init__
+  "D202",    # pydocstyle - no blank lines allowed after function docstring
+  "D205",    # pydocstyle - 1 blank line required between summary line and description
+  "D415",    # pydocstyle - first line should end with a period, question mark, or exclamation point
+  "E501",    # pycodestyle line too long, handled by ruff format
+  "PLW2901", # pylint - for loop variable overwritten by assignment target
+  "RUF012",  # Ruff-specific rule - annotated with classvar
+  "ISC001",  # Ruff formatter incompatible
+  "CPY001",  # ruff - copyright notice at the top of the file
   "RUF001",
   "RUF002",
-  "RUF012",
-
-  "S101",
-  "B008",
-
+  "FBT002",
+  "FBT001",
   "INP001",
-  "UP008",
-
-  "RET505",
+  "BLE001",
+  "ANN401",
 ]
 
 [tool.ruff.lint.flake8-annotations]

@@ -1,5 +1,4 @@
-"""
-Модуль с реализацией репозитория для работы с контактами через API Bitrix24.
+"""Модуль с реализацией репозитория для работы с контактами через API Bitrix24.
 
 Предоставляет методы для получения, поиска, создания, обновления и удаления контактов,
 а также для работы со связями между контактами и другими сущностями.
@@ -32,8 +31,7 @@ class BitrixContactRepository(
     BitrixRelationshipMixin,
     BitrixRepository,
 ):
-    """
-    Реализация репозитория для работы с контактами через API Bitrix24.
+    """Реализация репозитория для работы с контактами через API Bitrix24.
 
     Предоставляет полный набор методов для взаимодействия с контактами
     в соответствии с API Bitrix24.
@@ -52,16 +50,14 @@ class BitrixContactRepository(
     _company_items_method: ClassVar[str] = "crm.contact.company.items.get"
 
     def __init__(self, bitrix: Bitrix):
-        """
-        Инициализация репозитория.
+        """Инициализация репозитория.
 
         :param bitrix: Клиент для работы с API Bitrix24
         """
         super().__init__(bitrix=bitrix)
 
     async def search_by_name(self, name: str, limit: int = 10) -> list[Contact]:
-        """
-        Поиск контактов по имени.
+        """Поиск контактов по имени.
 
         :param name: Строка для поиска
         :param limit: Максимальное количество результатов
@@ -88,8 +84,7 @@ class BitrixContactRepository(
         phone: str,
         limit: int = 10,
     ) -> list[Contact]:
-        """
-        Поиск контактов по номеру телефона.
+        """Поиск контактов по номеру телефона.
 
         :param phone: Номер телефона для поиска
         :param limit: Максимальное количество результатов
@@ -116,8 +111,7 @@ class BitrixContactRepository(
         email: str,
         limit: int = 10,
     ) -> list[Contact]:
-        """
-        Поиск контактов по email.
+        """Поиск контактов по email.
 
         :param email: Email для поиска
         :param limit: Максимальное количество результатов
@@ -140,8 +134,7 @@ class BitrixContactRepository(
             return []
 
     async def get_deal_contacts(self, deal_id: int) -> list[Contact]:
-        """
-        Получение контактов, связанных со сделкой.
+        """Получение контактов, связанных со сделкой.
 
         :param deal_id: Идентификатор сделки
         :return: Список объектов контактов
@@ -171,8 +164,7 @@ class BitrixContactRepository(
         self,
         contact_ids: list[int],
     ) -> list[Contact]:
-        """
-        Загрузка контактов по списку идентификаторов.
+        """Загрузка контактов по списку идентификаторов.
 
         :param contact_ids: Список идентификаторов контактов
         :return: Список объектов контактов
@@ -200,8 +192,7 @@ class BitrixContactRepository(
         self,
         contact_id: int,
     ) -> list[dict[str, Any]]:
-        """
-        Получение компаний, связанных с контактом.
+        """Получение компаний, связанных с контактом.
 
         :param contact_id: Идентификатор контакта
         :return: Список данных о компаниях

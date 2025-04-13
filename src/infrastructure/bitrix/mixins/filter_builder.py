@@ -1,5 +1,4 @@
-"""
-Модуль с миксином для построения фильтров запросов к API Bitrix24.
+"""Модуль с миксином для построения фильтров запросов к API Bitrix24.
 
 Содержит методы для создания и комбинирования фильтров в соответствии
 с документацией API Bitrix24.
@@ -11,8 +10,7 @@ from src.infrastructure.bitrix.mixins.base import BaseMixin
 
 
 class BitrixFilterBuilderMixin(BaseMixin):
-    """
-    Миксин для построения фильтров запросов к API Bitrix24.
+    """Миксин для построения фильтров запросов к API Bitrix24.
 
     Предоставляет методы для создания сложных фильтров в соответствии
     с документацией API Bitrix24.
@@ -23,8 +21,7 @@ class BitrixFilterBuilderMixin(BaseMixin):
         filter_params: dict[str, Any] | None = None,
         filter_logic: dict[str, dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
-        """
-        Построение фильтра для запроса к API Bitrix24.
+        """Построение фильтра для запроса к API Bitrix24.
 
         :param filter_params: Базовые параметры фильтра
         :param filter_logic: Параметры логики фильтрации с операторами
@@ -49,8 +46,7 @@ class BitrixFilterBuilderMixin(BaseMixin):
         query: str,
         exact_match: bool = False,
     ) -> dict[str, Any]:
-        """
-        Создание фильтра для поиска по подстроке.
+        """Создание фильтра для поиска по подстроке.
 
         :param field: Поле для поиска
         :param query: Поисковый запрос
@@ -64,11 +60,10 @@ class BitrixFilterBuilderMixin(BaseMixin):
     @staticmethod
     def add_range_filter(
         field: str,
-        min_value: Any | None = None,
-        max_value: Any | None = None,
+        min_value: float | None = None,
+        max_value: float | None = None,
     ) -> dict[str, Any]:
-        """
-        Создание фильтра для диапазона значений.
+        """Создание фильтра для диапазона значений.
 
         :param field: Поле для фильтрации
         :param min_value: Минимальное значение
@@ -88,8 +83,7 @@ class BitrixFilterBuilderMixin(BaseMixin):
         values: list[Any],
         exclude: bool = False,
     ) -> dict[str, Any]:
-        """
-        Создание фильтра для списка значений (IN или NOT IN).
+        """Создание фильтра для списка значений (IN или NOT IN).
 
         :param field: Поле для фильтрации
         :param values: Список значений

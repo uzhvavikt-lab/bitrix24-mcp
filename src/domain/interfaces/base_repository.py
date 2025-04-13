@@ -1,5 +1,4 @@
-"""
-Модуль с базовыми интерфейсами репозиториев.
+"""Модуль с базовыми интерфейсами репозиториев.
 Содержит абстрактные классы для работы с различными сущностями Bitrix24.
 """
 
@@ -10,8 +9,7 @@ from src.domain.entities.base_entity import BitrixEntity
 
 
 class BitrixRepository[T: BitrixEntity](ABC):
-    """
-    Базовый интерфейс репозитория для работы с сущностями Bitrix24.
+    """Базовый интерфейс репозитория для работы с сущностями Bitrix24.
     Определяет общие методы для всех репозиториев, работающих с сущностями Bitrix24.
     """
 
@@ -19,8 +17,7 @@ class BitrixRepository[T: BitrixEntity](ABC):
 
     @abstractmethod
     async def get_by_id(self, entity_id: int) -> T | None:
-        """
-        Получение сущности по её идентификатору.
+        """Получение сущности по её идентификатору.
 
         :param entity_id: Идентификатор сущности
         :return: Объект сущности или None, если сущность не найдена
@@ -35,8 +32,7 @@ class BitrixRepository[T: BitrixEntity](ABC):
         start: int = 0,
         limit: int = 50,
     ) -> list[T]:
-        """
-        Получение списка сущностей с возможностью фильтрации.
+        """Получение списка сущностей с возможностью фильтрации.
 
         :param filter_params: Параметры фильтрации сущностей
         :param select_fields: Список полей для выбора
@@ -48,15 +44,13 @@ class BitrixRepository[T: BitrixEntity](ABC):
 
     @abstractmethod
     async def get_fields(self) -> dict:
-        """
-        Получение описания полей сущности.
+        """Получение описания полей сущности.
 
         :return: Словарь с описанием полей сущности
         """
 
     def supports_entity_type(self, entity_type: str) -> bool:
-        """
-        Проверяет, поддерживает ли репозиторий указанный тип сущности.
+        """Проверяет, поддерживает ли репозиторий указанный тип сущности.
 
         :param entity_type: Тип сущности для проверки
         :return: True, если репозиторий поддерживает указанный тип сущности, иначе False

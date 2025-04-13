@@ -1,5 +1,4 @@
-"""
-Модуль с базовой реализацией MCP сервера.
+"""Модуль с базовой реализацией MCP сервера.
 Содержит основную реализацию Model Context Protocol сервера
 для интеграции с Bitrix24.
 """
@@ -14,14 +13,12 @@ from src.infrastructure.logging.logger import logger
 
 @service
 class BitrixMCPServer:
-    """
-    Базовая реализация MCP сервера для интеграции с Bitrix24.
+    """Базовая реализация MCP сервера для интеграции с Bitrix24.
     Предоставляет общую функциональность для работы с Model Context Protocol.
     """
 
     def __init__(self, server_name: str = "Bitrix24 MCP Server"):
-        """
-        Инициализация MCP сервера.
+        """Инициализация MCP сервера.
         :param server_name: Название сервера.
         """
         self._server = FastMCP(server_name)
@@ -33,8 +30,7 @@ class BitrixMCPServer:
         name: str | None = None,
         description: str | None = None,
     ) -> Callable[..., str]:
-        """
-        Добавление инструмента в MCP сервер.
+        """Добавление инструмента в MCP сервер.
         :param func: Функция инструмента (должна возвращать строку)
         :param name: Название инструмента (опционально)
         :param description: Описание инструмента (опционально)
@@ -57,8 +53,7 @@ class BitrixMCPServer:
         name: str | None = None,
         description: str | None = None,
     ) -> Callable[..., str]:
-        """
-        Добавление ресурса в MCP сервер.
+        """Добавление ресурса в MCP сервер.
         :param route: Путь к ресурсу
         :param func: Функция для получения ресурса (должна возвращать строку)
         :param name: Название ресурса (опционально)
@@ -79,8 +74,7 @@ class BitrixMCPServer:
         name: str | None = None,
         description: str | None = None,
     ) -> Callable[..., str]:
-        """
-        Добавление промпта в MCP сервер.
+        """Добавление промпта в MCP сервер.
         :param func: Функция для создания промпта (должна возвращать строку)
         :param name: Название промпта (опционально)
         :param description: Описание промпта (опционально)
@@ -98,8 +92,7 @@ class BitrixMCPServer:
 
     @property
     def server(self) -> FastMCP:
-        """
-        Возвращает экземпляр внутреннего MCP сервера.
+        """Возвращает экземпляр внутреннего MCP сервера.
 
         Предоставляет прямой доступ к базовому экземпляру FastMCP,
         что позволяет использовать дополнительные методы и функции,

@@ -1,5 +1,4 @@
-"""
-Модуль с обработчиками MCP для контактов.
+"""Модуль с обработчиками MCP для контактов.
 
 Содержит обработчики инструментов и ресурсов для работы с контактами Bitrix24.
 """
@@ -14,8 +13,7 @@ from src.infrastructure.mcp.server import BitrixMCPServer
 
 
 def register_contact_handlers(mcp_server: BitrixMCPServer) -> None:
-    """
-    Регистрация обработчиков для работы с контактами.
+    """Регистрация обработчиков для работы с контактами.
 
     :param mcp_server: Экземпляр MCP сервера
     """
@@ -49,8 +47,7 @@ def register_contact_handlers(mcp_server: BitrixMCPServer) -> None:
 async def get_contact(
     contact_id: int,
 ) -> str:
-    """
-    Получение контакта по ID (инструмент).
+    """Получение контакта по ID (инструмент).
 
     :param contact_id: Идентификатор контакта
     :return: JSON-строка с данными контакта или сообщение об ошибке
@@ -67,8 +64,7 @@ async def search_contacts(
     search_type: str = "name",
     limit: int = 10,
 ) -> str:
-    """
-    Поиск контактов (инструмент).
+    """Поиск контактов (инструмент).
 
     :param query: Поисковый запрос
     :param search_type: Тип поиска (name, phone, email)
@@ -100,8 +96,7 @@ async def list_contacts(
     limit: int = 50,
     company_id: int | None = None,
 ) -> str:
-    """
-    Получение списка контактов (инструмент).
+    """Получение списка контактов (инструмент).
 
     :param limit: Максимальное количество результатов
     :param company_id: Идентификатор компании для фильтрации (опционально)
@@ -126,8 +121,7 @@ async def list_contacts(
 async def get_contact_resource(
     contact_id: str,
 ) -> str:
-    """
-    Получение данных контакта в виде ресурса.
+    """Получение данных контакта в виде ресурса.
 
     :param contact_id: Идентификатор контакта
     :return: Строковое представление данных контакта
@@ -146,8 +140,7 @@ async def get_contact_resource(
 
 
 def _format_contact_for_display(contact: Contact) -> str:
-    """
-    Форматирование контакта для читаемого отображения.
+    """Форматирование контакта для читаемого отображения.
 
     :param contact: Объект контакта
     :return: Форматированная строка с данными контакта

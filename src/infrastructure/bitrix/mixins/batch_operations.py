@@ -1,5 +1,4 @@
-"""
-Модуль с миксином для пакетных операций с API Bitrix24.
+"""Модуль с миксином для пакетных операций с API Bitrix24.
 
 Содержит методы для эффективного выполнения множественных запросов к API.
 """
@@ -12,8 +11,7 @@ from src.infrastructure.logging.logger import logger
 
 
 class BitrixBatchOperationsMixin(BaseMixin):
-    """
-    Миксин для пакетных операций с API Bitrix24.
+    """Миксин для пакетных операций с API Bitrix24.
 
     Предоставляет методы для эффективного выполнения
     множественных запросов к API.
@@ -24,8 +22,7 @@ class BitrixBatchOperationsMixin(BaseMixin):
         commands: dict[str, tuple[str, dict[str, Any]]],
         error_message: str = "Ошибка при выполнении пакетного запроса",
     ) -> dict[str, Any]:
-        """
-        Выполнение пакетного запроса.
+        """Выполнение пакетного запроса.
 
         :param commands: Словарь команд для выполнения
         :param halt_on_error: Прерывать выполнение при ошибке
@@ -67,8 +64,7 @@ class BitrixBatchOperationsMixin(BaseMixin):
         params: dict[str, Any],
         error_message: str = "Ошибка при выполнении пакетного запроса списка",
     ) -> list[dict[str, Any]]:
-        """
-        Получение списка элементов пакетными запросами.
+        """Получение списка элементов пакетными запросами.
 
         :param method: Метод API для получения списка
         :param params: Параметры запроса
@@ -93,8 +89,7 @@ class BitrixBatchOperationsMixin(BaseMixin):
         processor: Callable[[dict[str, Any]], T | None],
         error_message: str = "Ошибка при пакетном получении по идентификаторам",
     ) -> dict[int, T]:
-        """
-        Пакетное получение сущностей по идентификаторам.
+        """Пакетное получение сущностей по идентификаторам.
 
         :param method: Метод API для получения сущности
         :param entity_ids: Список идентификаторов
@@ -125,10 +120,11 @@ class BitrixBatchOperationsMixin(BaseMixin):
                     if entity:
                         entities[entity_id] = entity
 
-            return entities
         except Exception as e:
             logger.error(f"{error_message}: {e}")
             return {}
+        else:
+            return entities
 
     async def batch_create(
         self,
@@ -136,8 +132,7 @@ class BitrixBatchOperationsMixin(BaseMixin):
         items: list[dict[str, Any]],
         error_message: str = "Ошибка при пакетном создании",
     ) -> list[int | None]:
-        """
-        Пакетное создание элементов.
+        """Пакетное создание элементов.
 
         :param method: Метод API для создания элементов
         :param items: Список элементов для создания
@@ -173,7 +168,8 @@ class BitrixBatchOperationsMixin(BaseMixin):
                 else:
                     ids.append(None)
 
-            return ids
         except Exception as e:
             logger.error(f"{error_message} через {method}: {e}")
             return [None] * len(items)
+        else:
+            return ids

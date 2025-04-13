@@ -1,5 +1,4 @@
-"""
-Модуль с миксином для операций записи в Bitrix24 API.
+"""Модуль с миксином для операций записи в Bitrix24 API.
 
 Содержит методы для создания, обновления и удаления данных в API Bitrix24.
 """
@@ -12,8 +11,7 @@ from src.infrastructure.logging.logger import logger
 
 
 class BitrixWriteMixin[T: BitrixEntity](BaseMixin):
-    """
-    Миксин для операций записи данных в Bitrix24 API.
+    """Миксин для операций записи данных в Bitrix24 API.
 
     Предоставляет методы для создания, обновления и удаления сущностей.
     """
@@ -27,8 +25,7 @@ class BitrixWriteMixin[T: BitrixEntity](BaseMixin):
     _fields_param_name: ClassVar[str] = "fields"
 
     async def create(self, entity: T) -> int | None:
-        """
-        Создание новой сущности.
+        """Создание новой сущности.
 
         :param entity: Объект сущности для создания
         :return: ID созданной сущности или None в случае ошибки
@@ -74,8 +71,7 @@ class BitrixWriteMixin[T: BitrixEntity](BaseMixin):
             return None
 
     async def update(self, entity_id: int, entity: T) -> bool:
-        """
-        Обновление существующей сущности.
+        """Обновление существующей сущности.
 
         :param entity_id: Идентификатор сущности
         :param entity: Объект сущности с обновленными данными
@@ -114,8 +110,7 @@ class BitrixWriteMixin[T: BitrixEntity](BaseMixin):
         entity_id: int,
         fields: dict[str, Any],
     ) -> bool:
-        """
-        Обновление выбранных полей существующей сущности.
+        """Обновление выбранных полей существующей сущности.
 
         :param entity_id: Идентификатор сущности
         :param fields: Словарь с полями для обновления
@@ -148,8 +143,7 @@ class BitrixWriteMixin[T: BitrixEntity](BaseMixin):
             return False
 
     async def delete(self, entity_id: int) -> bool:
-        """
-        Удаление сущности.
+        """Удаление сущности.
 
         :param entity_id: Идентификатор сущности
         :return: True, если удаление успешно, иначе False

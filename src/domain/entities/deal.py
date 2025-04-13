@@ -1,5 +1,4 @@
-"""
-Модуль с сущностью сделки Bitrix24.
+"""Модуль с сущностью сделки Bitrix24.
 
 Содержит доменную модель сделки со всеми необходимыми атрибутами.
 """
@@ -19,8 +18,7 @@ from src.domain.entities.base_entity import BitrixEntity
 
 @dataclass
 class Deal(BitrixEntity):
-    """
-    Сущность сделки в CRM Bitrix24.
+    """Сущность сделки в CRM Bitrix24.
 
     Представляет доменную модель сделки со всеми необходимыми атрибутами.
     """
@@ -59,8 +57,7 @@ class Deal(BitrixEntity):
         data: dict[str, Any],
         contact_ids: list[int] | None = None,
     ) -> Self:
-        """
-        Создание сделки из данных Bitrix24.
+        """Создание сделки из данных Bitrix24.
 
         :param data: Словарь с данными из API Bitrix24
         :param contact_ids: Список идентификаторов контактов
@@ -76,8 +73,7 @@ class Deal(BitrixEntity):
         return deal
 
     def _convert_types(self) -> None:
-        """
-        Преобразование строковых значений в соответствующие типы.
+        """Преобразование строковых значений в соответствующие типы.
 
         API Битрикса возвращает все в виде строк,
         поэтому нужно провести корректное преобразование.
@@ -121,8 +117,7 @@ class Deal(BitrixEntity):
             ]
 
     def is_active(self) -> bool:
-        """
-        Проверка, является ли сделка активной.
+        """Проверка, является ли сделка активной.
 
         :return: True, если сделка активна, иначе False
         """

@@ -1,5 +1,4 @@
-"""
-Модуль с миксином для операций чтения из Bitrix24 API.
+"""Модуль с миксином для операций чтения из Bitrix24 API.
 
 Содержит методы для получения данных из API Bitrix24 с учетом
 особенностей разных типов сущностей.
@@ -13,8 +12,7 @@ from src.infrastructure.logging.logger import logger
 
 
 class BitrixReadMixin[T: BitrixEntity](BaseMixin):
-    """
-    Миксин для операций чтения данных из Bitrix24 API.
+    """Миксин для операций чтения данных из Bitrix24 API.
 
     Предоставляет методы для получения сущностей и их списков.
     """
@@ -31,8 +29,7 @@ class BitrixReadMixin[T: BitrixEntity](BaseMixin):
     _start_param_name: ClassVar[str] = "start"
 
     async def get_by_id(self, entity_id: int) -> T | None:
-        """
-        Получение сущности по идентификатору.
+        """Получение сущности по идентификатору.
 
         :param entity_id: Идентификатор сущности
         :return: Объект сущности или None, если сущность не найдена
@@ -73,8 +70,7 @@ class BitrixReadMixin[T: BitrixEntity](BaseMixin):
         start: int = 0,
         limit: int = 50,
     ) -> list[T]:
-        """
-        Получение списка сущностей с возможностью фильтрации.
+        """Получение списка сущностей с возможностью фильтрации.
 
         :param filter_params: Параметры фильтрации
         :param select_fields: Список полей для выбора
@@ -123,14 +119,14 @@ class BitrixReadMixin[T: BitrixEntity](BaseMixin):
                 if entity:
                     entities.append(entity)
 
-            return entities
         except Exception as e:
             logger.error(f"{error_message}: {e}")
             return []
+        else:
+            return entities
 
     async def get_fields(self) -> dict[str, Any]:
-        """
-        Получение описания полей сущности.
+        """Получение описания полей сущности.
 
         :return: Словарь с описанием полей сущности
         """
@@ -153,8 +149,7 @@ class BitrixReadMixin[T: BitrixEntity](BaseMixin):
         return response.get("result", {})
 
     async def _process_entity(self, data: dict[str, Any]) -> T | None:
-        """
-        Обработка данных сущности из API.
+        """Обработка данных сущности из API.
 
         Метод для переопределения в дочерних классах для
         добавления дополнительной логики обработки.

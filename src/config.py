@@ -1,22 +1,62 @@
-from pydantic import Field
-from pydantic_settings import BaseSettings
+"""Модуль конфигурации приложения.
+
+Предоставляет настройки приложения через переменные окружения.
+"""
+
+import os
+from dataclasses import dataclass
+from typing import ClassVar
 
 
-class Settings(BaseSettings):
+@dataclass(frozen=True, slots=True)
+class Settings:
+    """Настройки приложения.
+
+    :param bitrix_webhook_url: URL вебхука Bitrix24.
+    :param log_level: Уровень логирования (DEBUG, INFO, WARNING, ERROR, CRITICAL).
     """
-    Настройки приложения.
+
+    BITRIX_WEBHOOK_URL: str
+    LOG_LEVEL: str = "INFO"
+
+
+class SettingsManager:
+    """Менеджер настроек приложения.
+    Реализует паттерн Singleton для управления настройками.
     """
 
-    # Настройки Bitrix24
-    BITRIX_WEBHOOK_URL: str = Field(
-        "https://your-domain.bitrix24.ru/rest/1/yoursecretcode/",
-    )
+    _instance: ClassVar[Settings | None] = None
 
-    # Другие настройки
-    LOG_LEVEL: str = Field("INFO")
+    @classmethod
+    def init(cls) -> Settings:
+        """Инициализация настроек приложения.
 
-    class Config:
-        env_file = ".env"
+        :return: Экземпляр настроек.
+        :raises ValueError: Если не указан URL вебхука.
+        """
+        if cls._instance is None:
+            webhook_url = os.getenv("BITRIX_WEBHOOK_URL")
+            log_level = os.getenv("LOG_LEVEL", "INFO")
 
+            if not webhook_url:
+                msg = (
+                    "Не указана переменная окружения BITRIX_WEBHOOK_URL. "
+                    "Пожалуйста, укажите URL вебхука Bitrix24.",
+                )
+                raise ValueError(msg)
 
-settings = Settings()  # type: ignore[call-arg]
+            cls._instance = Settings(
+                BITRIX_WEBHOOK_URL=webhook_url,
+                LOG_LEVEL=log_level,
+            )
+        return cls._instance
+
+    @classmethod
+    def get(cls) -> Settings:
+        """Получение текущих настроек приложения.
+
+        :return: Экземпляр настроек.
+        """
+        if cls._instance is None:
+            return cls.init()
+        return cls._instance
