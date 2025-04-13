@@ -1,5 +1,4 @@
-"""
-Модуль с реализацией репозитория для работы со сделками через API Bitrix24.
+"""Модуль с реализацией репозитория для работы со сделками через API Bitrix24.
 
 Предоставляет методы для получения, поиска, создания, обновления и удаления сделок,
 а также для работы со связями между сделками и другими сущностями.
@@ -35,8 +34,7 @@ class BitrixDealRepository(
     BitrixRelationshipMixin,
     BitrixRepository,
 ):
-    """
-    Реализация репозитория для работы со сделками через API Bitrix24.
+    """Реализация репозитория для работы со сделками через API Bitrix24.
 
     Предоставляет полный набор методов для взаимодействия со сделками
     в соответствии с API Bitrix24.
@@ -65,8 +63,7 @@ class BitrixDealRepository(
         bitrix: Bitrix,
         contact_repository: BitrixContactRepository,
     ):
-        """
-        Инициализация репозитория.
+        """Инициализация репозитория.
 
         :param bitrix: Клиент для работы с API Bitrix24
         :param contact_repository: Репозиторий для работы с контактами
@@ -76,8 +73,7 @@ class BitrixDealRepository(
         self.contact_repository = contact_repository
 
     async def get_by_id(self, entity_id: int) -> Deal | None:
-        """
-        Получение сделки по её идентификатору.
+        """Получение сделки по её идентификатору.
 
         :param entity_id: Идентификатор сделки
         :return: Объект сделки или None, если сделка не найдена
@@ -115,8 +111,7 @@ class BitrixDealRepository(
         start: int = 0,
         limit: int = 50,
     ) -> list[Deal]:
-        """
-        Получение списка сделок с возможностью фильтрации.
+        """Получение списка сделок с возможностью фильтрации.
 
         :param filter_params: Параметры фильтрации сделок
         :param select_fields: Список полей для выбора
@@ -177,14 +172,14 @@ class BitrixDealRepository(
                     )
                     continue
 
-            return deals
         except Exception as e:
             logger.error(f"{error_message}: {e}")
             return []
+        else:
+            return deals
 
     async def update_stage(self, deal_id: int, stage_id: str) -> bool:
-        """
-        Обновление стадии сделки.
+        """Обновление стадии сделки.
 
         :param deal_id: Идентификатор сделки
         :param stage_id: Идентификатор новой стадии
@@ -193,8 +188,7 @@ class BitrixDealRepository(
         return await self.update_fields(deal_id, {"STAGE_ID": stage_id})
 
     async def add_contact(self, deal_id: int, contact_id: int) -> bool:
-        """
-        Добавление контакта к сделке.
+        """Добавление контакта к сделке.
 
         :param deal_id: Идентификатор сделки
         :param contact_id: Идентификатор контакта
@@ -218,8 +212,7 @@ class BitrixDealRepository(
             return False
 
     async def remove_contact(self, deal_id: int, contact_id: int) -> bool:
-        """
-        Удаление контакта из сделки.
+        """Удаление контакта из сделки.
 
         :param deal_id: Идентификатор сделки
         :param contact_id: Идентификатор контакта
@@ -243,8 +236,7 @@ class BitrixDealRepository(
             return False
 
     async def get_categories(self) -> dict[str, Any]:
-        """
-        Получение списка категорий сделок.
+        """Получение списка категорий сделок.
 
         :return: Словарь с категориями сделок
         """
@@ -268,8 +260,7 @@ class BitrixDealRepository(
             return {}
 
     async def get_stages(self, category_id: int = 0) -> dict[str, Any]:
-        """
-        Получение списка стадий сделок для указанной категории.
+        """Получение списка стадий сделок для указанной категории.
 
         :param category_id: Идентификатор категории
         :return: Словарь со стадиями сделок

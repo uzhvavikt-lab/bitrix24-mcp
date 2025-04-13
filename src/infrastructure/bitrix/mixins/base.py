@@ -1,29 +1,27 @@
-"""
-Модуль с базовым миксином для обработки ошибок.
+"""Модуль с базовым миксином для обработки ошибок.
 
 Содержит общие методы для безопасного выполнения асинхронных операций
 с обработкой исключений и логированием.
 """
 
+import typing
 from collections.abc import Awaitable, Callable
-from typing import Any
 
 from fast_bitrix24 import Bitrix
 
+from src.domain.entities.base_entity import BitrixEntity
 from src.infrastructure.logging.logger import logger
 
 
 class BaseMixin[T_Result]:
-    """
-    Базовый миксин для обработки ошибок при выполнении асинхронных операций.
+    """Базовый миксин для обработки ошибок при выполнении асинхронных операций.
 
     Предоставляет методы для безопасного выполнения асинхронных функций
     с логированием и обработкой распространенных исключений.
     """
 
     def __init__(self, bitrix: Bitrix):
-        """
-        Инициализация миксина.
+        """Инициализация миксина.
 
         :param bitrix: Клиент для работы с API Bitrix24
         """
@@ -35,11 +33,10 @@ class BaseMixin[T_Result]:
         func: Callable[..., Awaitable[T_Result]],
         error_context_message: str,
         default_value: T_Result,
-        *args: Any,
-        **kwargs: Any,
+        *args: typing.Any,
+        **kwargs: typing.Any,
     ) -> T_Result:
-        """
-        Безопасно выполняет асинхронную функцию с обработкой ошибок.
+        """Безопасно выполняет асинхронную функцию с обработкой ошибок.
 
         Логирует возникшие исключения и возвращает значение по умолчанию
         в случае ошибки.
@@ -89,9 +86,8 @@ class BaseMixin[T_Result]:
             return default_value
 
     @staticmethod
-    def _format_entity_name(entity_class: Any) -> str:
-        """
-        Форматирование имени сущности для логирования.
+    def _format_entity_name(entity_class: type[BitrixEntity]) -> str:
+        """Форматирование имени сущности для логирования.
 
         :param entity_class: Класс сущности
         :returns: Отформатированное имя сущности

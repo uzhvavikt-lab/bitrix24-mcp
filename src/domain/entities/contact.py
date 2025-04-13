@@ -1,5 +1,4 @@
-"""
-Модуль с сущностью контакта Bitrix24.
+"""Модуль с сущностью контакта Bitrix24.
 
 Содержит доменную модель контакта со всеми необходимыми атрибутами.
 """
@@ -13,8 +12,7 @@ from src.domain.entities.base_entity import BitrixEntity
 
 @dataclass
 class Contact(BitrixEntity):
-    """
-    Сущность контакта в CRM Bitrix24.
+    """Сущность контакта в CRM Bitrix24.
 
     Представляет доменную модель контакта со всеми необходимыми атрибутами.
     """
@@ -46,8 +44,7 @@ class Contact(BitrixEntity):
 
     @classmethod
     def from_bitrix(cls, data: dict[str, Any]) -> Self:
-        """
-        Создание контакта из данных Bitrix24.
+        """Создание контакта из данных Bitrix24.
 
         :param data: Словарь с данными из API Bitrix24
         :return: Объект контакта
@@ -71,8 +68,7 @@ class Contact(BitrixEntity):
         return contact
 
     def _convert_types(self) -> None:
-        """
-        Преобразование строковых значений в соответствующие типы.
+        """Преобразование строковых значений в соответствующие типы.
 
         API Битрикса возвращает все в виде строк,
         поэтому нужно провести корректное преобразование.
@@ -102,8 +98,7 @@ class Contact(BitrixEntity):
             self.modified_by_id = int(self.modified_by_id)
 
     def get_primary_email(self) -> str | None:
-        """
-        Получение основного email-адреса контакта.
+        """Получение основного email-адреса контакта.
 
         :return: Основной email или None, если email не указан
         """
@@ -117,8 +112,7 @@ class Contact(BitrixEntity):
         return self.email[0].value
 
     def get_primary_phone(self) -> str | None:
-        """
-        Получение основного номера телефона контакта.
+        """Получение основного номера телефона контакта.
 
         :return: Основной телефон или None, если телефон не указан
         """
@@ -136,8 +130,7 @@ class Contact(BitrixEntity):
         return self.phone[0].value
 
     def get_full_name(self) -> str:
-        """
-        Получение полного имени контакта.
+        """Получение полного имени контакта.
 
         :return: Полное имя контакта
         """

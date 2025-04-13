@@ -134,7 +134,6 @@ dependencies = [
     { name = "mcp", extra = ["cli"] },
     { name = "pydantic" },
     { name = "pydantic-settings" },
-    { name = "ruff" },
     { name = "structlog" },
     { name = "wireup" },
 ]
@@ -150,7 +149,6 @@ requires-dist = [
     { name = "mcp", extras = ["cli"], specifier = ">=1.4.1" },
     { name = "pydantic", specifier = ">=2.10.6" },
     { name = "pydantic-settings", specifier = ">=2.8.1" },
-    { name = "ruff", specifier = ">=0.11.0" },
     { name = "structlog", specifier = ">=25.2.0" },
     { name = "wireup", specifier = ">=0.16.0" },
 ]

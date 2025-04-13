@@ -1,5 +1,4 @@
-"""
-Модуль с миксином для работы со связями между сущностями Bitrix24.
+"""Модуль с миксином для работы со связями между сущностями Bitrix24.
 
 Содержит методы для управления отношениями между сущностями (контакты-компании,
 сделки-контакты и т.д.).
@@ -12,8 +11,7 @@ from src.infrastructure.logging.logger import logger
 
 
 class BitrixRelationshipMixin(BaseMixin):
-    """
-    Миксин для работы со связями между сущностями в Bitrix24.
+    """Миксин для работы со связями между сущностями в Bitrix24.
 
     Предоставляет методы для управления отношениями между сущностями
     (контакты-компании, сделки-контакты и т.д.).
@@ -29,8 +27,7 @@ class BitrixRelationshipMixin(BaseMixin):
         field_name: str = "CONTACT_ID",
         error_message: str | None = None,
     ) -> bool:
-        """
-        Добавление связи между сущностями.
+        """Добавление связи между сущностями.
 
         :param method: Метод API для добавления связи
         :param entity_id: Идентификатор основной сущности
@@ -67,8 +64,7 @@ class BitrixRelationshipMixin(BaseMixin):
         field_name: str = "CONTACT_ID",
         error_message: str | None = None,
     ) -> bool:
-        """
-        Удаление связи между сущностями.
+        """Удаление связи между сущностями.
 
         :param method: Метод API для удаления связи
         :param entity_id: Идентификатор основной сущности
@@ -103,8 +99,7 @@ class BitrixRelationshipMixin(BaseMixin):
         entity_id: int,
         error_message: str | None = None,
     ) -> list[dict[str, Any]]:
-        """
-        Получение связанных элементов.
+        """Получение связанных элементов.
 
         :param method: Метод API для получения связанных элементов
         :param entity_id: Идентификатор основной сущности

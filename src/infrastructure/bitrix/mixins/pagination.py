@@ -1,5 +1,4 @@
-"""
-Модуль с миксином для пагинации при работе с API Bitrix24.
+"""Модуль с миксином для пагинации при работе с API Bitrix24.
 
 Содержит методы для получения данных с учетом пагинации API.
 """
@@ -12,8 +11,7 @@ from src.infrastructure.logging.logger import logger
 
 
 class BitrixPaginationMixin(BaseMixin):
-    """
-    Миксин для работы с пагинацией API Bitrix24.
+    """Миксин для работы с пагинацией API Bitrix24.
 
     Предоставляет методы для эффективного получения данных
     с учетом особенностей пагинации конкретных методов API.
@@ -29,8 +27,7 @@ class BitrixPaginationMixin(BaseMixin):
         max_items: int | None = None,
         start_param_name: str = "start",
     ) -> list[T]:
-        """
-        Получение данных с учетом пагинации.
+        """Получение данных с учетом пагинации.
 
         :param method: Метод API для вызова
         :param params: Параметры запроса
@@ -91,8 +88,7 @@ class BitrixPaginationMixin(BaseMixin):
         page_size: int = 50,
         max_items: int | None = None,
     ) -> list[T]:
-        """
-        Получение всех элементов с использованием пагинации или без нее.
+        """Получение всех элементов с использованием пагинации или без нее.
 
         :param method: Метод API для вызова
         :param params: Параметры запроса
@@ -117,25 +113,25 @@ class BitrixPaginationMixin(BaseMixin):
                     page_size=page_size,
                     max_items=max_items,
                 )
-            else:
-                response = await self._bitrix.call(method, params)
+            response = await self._bitrix.call(method, params)
 
-                if not response or "result" not in response:
-                    logger.warning(
-                        f"{error_message}: получен некорректный ответ",
-                    )
-                    return []
+            if not response or "result" not in response:
+                logger.warning(
+                    f"{error_message}: получен некорректный ответ",
+                )
+                return []
 
-                items = response["result"]
-                processed_items = [
-                    processed
-                    for item in items
-                    if (processed := processor(item)) is not None
-                ]
+            items = response["result"]
+            processed_items = [
+                processed
+                for item in items
+                if (processed := processor(item)) is not None
+            ]
 
-                if max_items is not None:
-                    return processed_items[:max_items]
-                return processed_items
+            if max_items is not None:
+                return processed_items[:max_items]
         except Exception as e:
             logger.error(f"{error_message}: {e}")
             return []
+        else:
+            return processed_items

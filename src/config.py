@@ -1,22 +1,60 @@
+"""Модуль конфигурации приложения.
+
+Предоставляет настройки приложения через параметры командной строки.
+"""
+
+import typing
+from typing import ClassVar
+
 from pydantic import Field
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """
-    Настройки приложения.
-    """
+    """Настройки приложения."""
 
-    # Настройки Bitrix24
     BITRIX_WEBHOOK_URL: str = Field(
-        "https://your-domain.bitrix24.ru/rest/1/yoursecretcode/",
+        description="URL вебхука Bitrix24",
     )
 
-    # Другие настройки
-    LOG_LEVEL: str = Field("INFO")
+    LOG_LEVEL: str = Field(
+        default="INFO",
+        description="Уровень логирования (DEBUG, INFO, WARNING, ERROR, CRITICAL)",
+    )
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=None)
 
 
-settings = Settings()  # type: ignore[call-arg]
+class SettingsManager:
+    """Менеджер настроек приложения.
+    Реализует паттерн Singleton для управления настройками.
+    """
+
+    _instance: ClassVar[Settings | None] = None
+
+    @classmethod
+    def init(cls, **kwargs: typing.Any) -> Settings:
+        """Инициализация настроек приложения.
+
+        :param kwargs: Параметры конфигурации
+        :return: Экземпляр настроек
+        """
+        cls._instance = Settings(**kwargs)
+        return cls._instance
+
+    @classmethod
+    def get(cls) -> Settings:
+        """Получение текущих настроек приложения.
+
+        :return: Экземпляр настроек
+        :raises RuntimeError: Если настройки не были инициализированы
+        """
+        if cls._instance is None:
+            msg = (
+                "Настройки не инициализированы. "
+                "Вызовите SettingsManager.init() перед использованием."
+            )
+            raise RuntimeError(
+                msg,
+            )
+        return cls._instance

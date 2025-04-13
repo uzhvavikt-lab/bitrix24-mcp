@@ -1,5 +1,4 @@
-"""
-Сервис для работы со сделками.
+"""Сервис для работы со сделками.
 
 Предоставляет бизнес-логику для работы со сделками Bitrix24.
 """
@@ -22,15 +21,13 @@ if TYPE_CHECKING:
 
 @service
 class DealService:
-    """
-    Сервис для работы со сделками Bitrix24.
+    """Сервис для работы со сделками Bitrix24.
 
     Содержит методы для поиска, получения и обработки сделок.
     """
 
     def __init__(self, bitrix_repository_factory: BitrixRepositoryFactory):
-        """
-        Инициализация сервиса сделок.
+        """Инициализация сервиса сделок.
 
         :param bitrix_repository_factory: Фабрика репозиториев Bitrix24
         """
@@ -45,8 +42,7 @@ class DealService:
         )
 
     async def get_deal_by_id(self, deal_id: int) -> Deal | None:
-        """
-        Получение сделки по идентификатору.
+        """Получение сделки по идентификатору.
 
         :param deal_id: Идентификатор сделки
         :return: Объект сделки или None, если сделка не найдена
@@ -60,8 +56,7 @@ class DealService:
         company_id: int | None = None,
         limit: int = 50,
     ) -> list[Deal]:
-        """
-        Получение списка сделок с возможностью фильтрации.
+        """Получение списка сделок с возможностью фильтрации.
 
         :param active_only: Только активные сделки
         :param contact_id: Идентификатор контакта для фильтрации (опционально)
@@ -91,8 +86,7 @@ class DealService:
         )
 
     async def update_deal_stage(self, deal_id: int, stage_id: str) -> bool:
-        """
-        Обновление стадии сделки.
+        """Обновление стадии сделки.
 
         :param deal_id: Идентификатор сделки
         :param stage_id: Идентификатор новой стадии
@@ -101,8 +95,7 @@ class DealService:
         return await self._deal_repository.update_stage(deal_id, stage_id)
 
     async def add_contact_to_deal(self, deal_id: int, contact_id: int) -> bool:
-        """
-        Добавление контакта к сделке.
+        """Добавление контакта к сделке.
 
         :param deal_id: Идентификатор сделки
         :param contact_id: Идентификатор контакта
@@ -115,8 +108,7 @@ class DealService:
         deal_id: int,
         contact_id: int,
     ) -> bool:
-        """
-        Удаление контакта из сделки.
+        """Удаление контакта из сделки.
 
         :param deal_id: Идентификатор сделки
         :param contact_id: Идентификатор контакта
@@ -128,8 +120,7 @@ class DealService:
         )
 
     async def create_deal(self, deal: Deal) -> int | None:
-        """
-        Создание новой сделки.
+        """Создание новой сделки.
 
         :param deal: Объект сделки для создания
         :return: ID созданной сделки или None в случае ошибки
@@ -137,8 +128,7 @@ class DealService:
         return await self._deal_repository.create(deal)
 
     async def update_deal(self, deal_id: int, deal: Deal) -> bool:
-        """
-        Обновление существующей сделки.
+        """Обновление существующей сделки.
 
         :param deal_id: Идентификатор сделки
         :param deal: Объект сделки с обновленными данными
@@ -147,8 +137,7 @@ class DealService:
         return await self._deal_repository.update(deal_id, deal)
 
     async def get_deal_stages(self, category_id: int = 0) -> dict[str, Any]:
-        """
-        Получение списка стадий сделок для указанной категории.
+        """Получение списка стадий сделок для указанной категории.
 
         :param category_id: Идентификатор категории
         :return: Словарь со стадиями сделок
