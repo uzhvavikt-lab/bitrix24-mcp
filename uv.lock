@@ -132,8 +132,6 @@ source = { editable = "." }
 dependencies = [
     { name = "fast-bitrix24" },
     { name = "mcp", extra = ["cli"] },
-    { name = "pydantic" },
-    { name = "pydantic-settings" },
     { name = "structlog" },
     { name = "wireup" },
 ]
@@ -147,8 +145,6 @@ dev = [
 requires-dist = [
     { name = "fast-bitrix24", specifier = ">=1.8.4" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.4.1" },
-    { name = "pydantic", specifier = ">=2.10.6" },
-    { name = "pydantic-settings", specifier = ">=2.8.1" },
     { name = "structlog", specifier = ">=25.2.0" },
     { name = "wireup", specifier = ">=0.16.0" },
 ]

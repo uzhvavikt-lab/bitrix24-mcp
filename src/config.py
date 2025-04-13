@@ -1,28 +1,23 @@
 """Модуль конфигурации приложения.
 
-Предоставляет настройки приложения через параметры командной строки.
+Предоставляет настройки приложения через переменные окружения.
 """
 
-import typing
+import os
+from dataclasses import dataclass
 from typing import ClassVar
 
-from pydantic import Field
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
+@dataclass(frozen=True, slots=True)
+class Settings:
+    """Настройки приложения.
 
-class Settings(BaseSettings):
-    """Настройки приложения."""
+    :param bitrix_webhook_url: URL вебхука Bitrix24.
+    :param log_level: Уровень логирования (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+    """
 
-    BITRIX_WEBHOOK_URL: str = Field(
-        description="URL вебхука Bitrix24",
-    )
-
-    LOG_LEVEL: str = Field(
-        default="INFO",
-        description="Уровень логирования (DEBUG, INFO, WARNING, ERROR, CRITICAL)",
-    )
-
-    model_config = SettingsConfigDict(env_file=None)
+    BITRIX_WEBHOOK_URL: str
+    LOG_LEVEL: str = "INFO"
 
 
 class SettingsManager:
@@ -33,28 +28,35 @@ class SettingsManager:
     _instance: ClassVar[Settings | None] = None
 
     @classmethod
-    def init(cls, **kwargs: typing.Any) -> Settings:
+    def init(cls) -> Settings:
         """Инициализация настроек приложения.
 
-        :param kwargs: Параметры конфигурации
-        :return: Экземпляр настроек
+        :return: Экземпляр настроек.
+        :raises ValueError: Если не указан URL вебхука.
         """
-        cls._instance = Settings(**kwargs)
+        if cls._instance is None:
+            webhook_url = os.getenv("BITRIX_WEBHOOK_URL")
+            log_level = os.getenv("LOG_LEVEL", "INFO")
+
+            if not webhook_url:
+                msg = (
+                    "Не указана переменная окружения BITRIX_WEBHOOK_URL. "
+                    "Пожалуйста, укажите URL вебхука Bitrix24.",
+                )
+                raise ValueError(msg)
+
+            cls._instance = Settings(
+                BITRIX_WEBHOOK_URL=webhook_url,
+                LOG_LEVEL=log_level,
+            )
         return cls._instance
 
     @classmethod
     def get(cls) -> Settings:
         """Получение текущих настроек приложения.
 
-        :return: Экземпляр настроек
-        :raises RuntimeError: Если настройки не были инициализированы
+        :return: Экземпляр настроек.
         """
         if cls._instance is None:
-            msg = (
-                "Настройки не инициализированы. "
-                "Вызовите SettingsManager.init() перед использованием."
-            )
-            raise RuntimeError(
-                msg,
-            )
+            return cls.init()
         return cls._instance
