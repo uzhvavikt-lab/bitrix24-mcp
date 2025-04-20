@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     )
 
 
-@provide(scope=Scope.APP)
 class DealService:
     """Сервис для работы со сделками Bitrix24.
 

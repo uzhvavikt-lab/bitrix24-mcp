@@ -16,7 +16,6 @@ if TYPE_CHECKING:
     )
 
 
-@provide(scope=Scope.APP)
 class ContactService:
     """Сервис для работы с контактами Bitrix24.
 
