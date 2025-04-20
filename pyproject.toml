@@ -1,6 +1,6 @@
 [project]
 name = "bitrix24-mcp"
-version = "0.1.0"
+version = "0.1.2"
 description = "MCP server for interacting with Bitrix24 using natural language and AI dialogues to get data, perform actions, and manage the system."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -8,14 +8,14 @@ dependencies = [
   "fast-bitrix24>=1.8.4",
   "mcp[cli]>=1.4.1",
   "structlog>=25.2.0",
-  "wireup>=0.16.0",
+  "dishka>=1.5.3",
 ]
 
 [project.scripts]
-mcp-server-b24 = "app.presentation.mcp:main"
+mcp-server-b24 = "src:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["app"]
+packages = ["src"]
 
 [build-system]
 requires = ["hatchling"]
