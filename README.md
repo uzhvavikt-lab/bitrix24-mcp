@@ -3,7 +3,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![Code style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-<!-- Добавьте другие бейджи по мере необходимости (CI/CD, Code Coverage и т.д.) -->
 
 Интеграционный сервер, использующий Model Context Protocol (MCP), для предоставления доступа к данным и функциям Bitrix24 для больших языковых моделей (LLM) и других AI-агентов. LLM могут безопасно взаимодействовать с вашими CRM-данными (контакты, сделки), используя предопределенные "инструменты" и "ресурсы", предоставляемые этим сервером через стандартный протокол MCP.
 
@@ -44,7 +43,7 @@
 
 1.  **Клонируйте репозиторий:**
     ```bash
-    git clone https://github.com/kartochka/bitrix24-mcp/tree/main
+    git clone https://github.com/kartochka/bitrix24-mcp.git
     cd mcp-server-b24
     ```
 

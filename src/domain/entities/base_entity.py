@@ -16,7 +16,7 @@ class BitrixEntity:
     """
 
     id: int
-    additional_fields: dict[str, Any] = field(default_factory=dict)
+    additional_fields: dict[str, Any] = field(default_factory=dict)  # Отключено
 
     _bitrix_field_mapping: ClassVar[dict[str, str]] = {
         "ID": "id",
@@ -46,8 +46,6 @@ class BitrixEntity:
                 if k not in cls._bitrix_field_mapping
             },
         }
-
-        entity_data["additional_fields"] = additional_fields
 
         return cls(**entity_data)
 
