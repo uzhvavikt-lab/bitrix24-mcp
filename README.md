@@ -15,7 +15,7 @@
     *   **Промпты (Prompts):** Шаблоны для генерации запросов к AI.
 *   **Асинхронность:** Построен на `asyncio` для эффективной обработки запросов.
 *   **Внедрение Зависимостей:** Использует `wireup` для управления зависимостями.
-*   **Конфигурируемость:** Настройки управляются через переменные окружения или `.env` файл (`pydantic-settings`).
+*   **Конфигурируемость:** Настройки управляются через переменные окружения.
 *   **Структурированное Логирование:** Использует `structlog` для удобного отслеживания событий.
 *   **Расширяемость:** Легко добавлять поддержку новых сущностей Bitrix24 или новые MCP инструменты/ресурсы.
 
@@ -24,11 +24,11 @@
 *   Python 3.12+
 *   [Fast-Bitrix24](https://github.com/leshchenko1979/fast_bitrix24): Клиент для Bitrix24 REST API
 *   [MCP (Model Context Protocol)](https://github.com/mentalcalculation/mcp): Фреймворк для создания MCP серверов (`fastmcp`)
-*   [WireUp](https://github.com/maldoinc/wireup): Контейнер внедрения зависимостей
 *   [Pydantic & Pydantic-Settings](https://docs.pydantic.dev/): Валидация данных и управление настройками
 *   [Structlog](https://www.structlog.org/): Структурированное логирование
 *   [Ruff](https://github.com/astral-sh/ruff): Линтер и форматер кода
 *   Asyncio
+*   [Dishka](https://pypi.org/project/dishka/): CLI-утилиты для управления зависимостями и скриптами
 
 ## Начало Работы
 
@@ -38,47 +38,22 @@
 2.  **Bitrix24:**
     *   Аккаунт Bitrix24 (облачный или коробочный).
     *   Входящий вебхук (Webhook) с необходимыми правами (как минимум `crm`). [Как создать вебхук](https://helpdesk.bitrix24.ru/open/12143646/).
-
-### Установка
-
-1.  **Клонируйте репозиторий:**
-    ```bash
-    git clone https://github.com/kartochka/bitrix24-mcp.git
-    cd mcp-server-b24
-    ```
-
-2.  **Создайте и активируйте виртуальное окружение:**
-    ```bash
-    uv sync --no-dev
     ```
 
 ### Конфигурация
 
-Серверу требуется URL вашего вебхука Bitrix24. Его можно задать одним из способов:
+Серверу требуется задать переменную окружения `BITRIX_WEBHOOK_URL`:
 
-1.  **Переменная окружения:**
-    ```bash
-    export BITRIX_WEBHOOK_URL="https://your-domain.bitrix24.ru/rest/1/yoursecretcode/"
-    ```
-
-2.  **Файл `.env`:**
-    Создайте файл `.env` в корневой директории проекта со следующим содержимым:
-    ```dotenv
-    # .env
-    BITRIX_WEBHOOK_URL="https://your-domain.bitrix24.ru/rest/1/yoursecretcode/"
-
-    # Опциональный уровень логирования (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-    # LOG_LEVEL=INFO
-    ```
+```bash
+export BITRIX_WEBHOOK_URL="https://your-domain.bitrix24.ru/rest/1/yoursecretcode/"
+```
 
 ### Запуск Сервера
 
-После установки и настройки, запустите MCP сервер:
+запустите MCP сервер:
 
 ```bash
-python main.py
-# или если вы установили пакет глобально или через pip install .
-mcp-server-b24
+uvx bitrix24-mcp
 ```
 
 Вы увидите логи в консоли, включая информацию о зарегистрированных MCP инструментах и ресурсах.
@@ -176,4 +151,4 @@ python test_services.py
 
 ## Лицензия
 
-Этот проект лицензирован под лицензией MIT - см. файл [LICENSE](LICENSE) для подробностей.
+Этот проект лицензирован под лицензией MIT — см. файл [LICENSE](LICENSE) для подробностей.
