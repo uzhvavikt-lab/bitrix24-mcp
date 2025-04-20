@@ -5,7 +5,7 @@
 
 from typing import TYPE_CHECKING, cast
 
-from wireup import service
+from dishka import Scope, provide
 
 from src.domain.entities.contact import Contact
 from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     )
 
 
-@service
+@provide(scope=Scope.APP)
 class ContactService:
     """Сервис для работы с контактами Bitrix24.
 

@@ -71,8 +71,6 @@ async def search_contacts(
     :param limit: Максимальное количество результатов
     :return: JSON-строка с результатами поиска
     """
-    contact_service = container.get(ContactService)
-
     if search_type not in ["name", "phone", "email"]:
         return json.dumps(
             {
@@ -80,6 +78,7 @@ async def search_contacts(
             },
         )
 
+    contact_service = container.get(ContactService)
     contacts = await contact_service.search_contacts(query, search_type, limit)
 
     result = {

@@ -137,7 +137,6 @@ async def get_deal_resource(
     """Получение данных сделки в виде ресурса.
 
     :param deal_id: Идентификатор сделки
-    :param deal_service: Сервис для работы со сделками (внедряется через DI)
     :return: Строковое представление данных сделки
     """
     deal_service = container.get(DealService)
@@ -156,7 +155,6 @@ async def get_deal_resource(
 async def get_active_deals_resource() -> str:
     """Получение списка активных сделок в виде ресурса.
 
-    :param limit: Максимальное количество сделок
     :return: Строковое представление списка сделок
     """
     deal_service = container.get(DealService)

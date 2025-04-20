@@ -69,4 +69,4 @@ class BitrixEntity:
 
         :return: Словарь с атрибутами объекта
         """
-        return json.dumps(asdict(self))
+        return json.dumps(asdict(self), ensure_ascii=False)
