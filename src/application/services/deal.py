@@ -5,7 +5,7 @@
 
 from typing import TYPE_CHECKING, Any, cast
 
-from wireup import service
+from dishka import Scope, provide
 
 from src.domain.entities.deal import Deal
 from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     )
 
 
-@service
 class DealService:
     """Сервис для работы со сделками Bitrix24.
 

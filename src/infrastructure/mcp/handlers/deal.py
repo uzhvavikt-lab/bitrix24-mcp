@@ -8,9 +8,16 @@ from typing import Any
 
 from src.application.services.deal import DealService
 from src.domain.entities.deal import Deal
-from src.infrastructure.ioc import container
 from src.infrastructure.logging.logger import logger
 from src.infrastructure.mcp.server import BitrixMCPServer
+
+# Получаем зависимости напрямую из провайдера
+from src.infrastructure.ioc import provider
+from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
+
+# Создаем зависимости напрямую
+repository_factory = provider.provide_repository_factory()
+deal_service = provider.provide_deal_service(repository_factory)
 
 
 def register_deal_handlers(mcp_server: BitrixMCPServer) -> None:
@@ -59,7 +66,6 @@ async def get_deal(
     :param deal_id: Идентификатор сделки
     :return: JSON-строка с данными сделки или сообщение об ошибке
     """
-    deal_service = container.get(DealService)
     deal = await deal_service.get_deal_by_id(deal_id)
     if not deal:
         return json.dumps({"error": f"Сделка с ID={deal_id} не найдена"})
@@ -82,7 +88,6 @@ async def list_deals(
     """
     if not limit:
         limit = 50
-    deal_service = container.get(DealService)
     deals = await deal_service.list_deals(
         active_only,
         contact_id,
@@ -117,7 +122,6 @@ async def update_deal_stage(
     :param stage_id: Идентификатор новой стадии
     :return: JSON-строка с результатом операции
     """
-    deal_service = container.get(DealService)
     success = await deal_service.update_deal_stage(deal_id, stage_id)
 
     result = {
@@ -137,10 +141,8 @@ async def get_deal_resource(
     """Получение данных сделки в виде ресурса.
 
     :param deal_id: Идентификатор сделки
-    :param deal_service: Сервис для работы со сделками (внедряется через DI)
     :return: Строковое представление данных сделки
     """
-    deal_service = container.get(DealService)
     try:
         deal_id_int = int(deal_id)
         deal = await deal_service.get_deal_by_id(deal_id_int)
@@ -156,10 +158,8 @@ async def get_deal_resource(
 async def get_active_deals_resource() -> str:
     """Получение списка активных сделок в виде ресурса.
 
-    :param limit: Максимальное количество сделок
     :return: Строковое представление списка сделок
     """
-    deal_service = container.get(DealService)
     deals = await deal_service.list_deals(active_only=True)
 
     if not deals:

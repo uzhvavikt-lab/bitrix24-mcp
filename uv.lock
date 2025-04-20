@@ -127,13 +127,13 @@ wheels = [
 
 [[package]]
 name = "bitrix24-mcp"
-version = "0.1.0"
+version = "1.0.1"
 source = { editable = "." }
 dependencies = [
+    { name = "dishka" },
     { name = "fast-bitrix24" },
     { name = "mcp", extra = ["cli"] },
     { name = "structlog" },
-    { name = "wireup" },
 ]
 
 [package.dev-dependencies]
@@ -143,10 +143,10 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "dishka", specifier = ">=1.5.3" },
     { name = "fast-bitrix24", specifier = ">=1.8.4" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.4.1" },
     { name = "structlog", specifier = ">=25.2.0" },
-    { name = "wireup", specifier = ">=0.16.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -180,6 +180,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44", size = 27697 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6", size = 25335 },
+]
+
+[[package]]
+name = "dishka"
+version = "1.5.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9b/8d/9626362c36da6fd92dd8a49dd41d0d5ebd1b41803a513c4b5a6716b4f47d/dishka-1.5.3.tar.gz", hash = "sha256:d40c0d879f6662e66de0c72458081fbcbdb55fee5823ca5820b714bc1c690c29", size = 63979 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6d/68/17770f991f3284d7f8f9b917e7e9c53e17a24acd5219e050df8bc1bc23aa/dishka-1.5.3-py3-none-any.whl", hash = "sha256:838f2c21ad2f39424e326e836fb9dbef127d8e418593b9e9d5187c14479cd079", size = 88579 },
 ]
 
 [[package]]
@@ -686,15 +695,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/4b/4d/938bd85e5bf2edeec766267a5015ad969730bb91e31b44021dfe8b22df6c/uvicorn-0.34.0.tar.gz", hash = "sha256:404051050cd7e905de2c9a7e61790943440b3416f49cb409f965d9dcd0fa73e9", size = 76568 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/61/14/33a3a1352cfa71812a3a21e8c9bfb83f60b0011f5e36f2b1399d51928209/uvicorn-0.34.0-py3-none-any.whl", hash = "sha256:023dc038422502fa28a09c7a30bf2b6991512da7dcdb8fd35fe57cfc154126f4", size = 62315 },
-]
-
-[[package]]
-name = "wireup"
-version = "0.16.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d0/6f/c3e35097ec81fe4b939bcdf4e0b6a2f7ae52c1cc2648d382e445e142eb9f/wireup-0.16.0.tar.gz", hash = "sha256:9a266eabb7c0fb440fd9297be20c326ac7925e670d95914384d8e71ecb4ba6f0", size = 26149 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/11/32/a2b438f2fa00931d9dbf1ab1b8630dcb3111b47905fc5751402cc32ddfcf/wireup-0.16.0-py3-none-any.whl", hash = "sha256:674d1497b302df48736795ad13859752c97e6df7fb6a0368b26559b356418875", size = 32401 },
 ]
 
 [[package]]

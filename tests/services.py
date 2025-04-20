@@ -67,7 +67,7 @@ async def test_deal_service() -> dict[str, Any]:
     deal_service = container.get(DealService)
     results = {}
 
-    deals = await deal_service.list_deals(limit=5)
+    deals = await deal_service.list_deals(active_only=True)
     results['list_deals'] = {
         'success': len(deals) >= 0,
         'count': len(deals),

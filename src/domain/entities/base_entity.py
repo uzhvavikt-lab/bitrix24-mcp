@@ -16,7 +16,7 @@ class BitrixEntity:
     """
 
     id: int
-    additional_fields: dict[str, Any] = field(default_factory=dict)
+    additional_fields: dict[str, Any] = field(default_factory=dict)  # Отключено
 
     _bitrix_field_mapping: ClassVar[dict[str, str]] = {
         "ID": "id",
@@ -47,8 +47,6 @@ class BitrixEntity:
             },
         }
 
-        entity_data["additional_fields"] = additional_fields
-
         return cls(**entity_data)
 
     def to_bitrix(self) -> dict[str, Any]:
@@ -71,4 +69,4 @@ class BitrixEntity:
 
         :return: Словарь с атрибутами объекта
         """
-        return json.dumps(asdict(self))
+        return json.dumps(asdict(self), ensure_ascii=False)

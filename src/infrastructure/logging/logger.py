@@ -4,6 +4,8 @@
 """
 
 import logging
+import os
+import platform
 import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -12,27 +14,44 @@ import structlog
 
 
 def _configure_logging() -> structlog.stdlib.BoundLogger:
-    """Настройка системы логирования.
-
-    :returns: Настроенный structlog логгер
-    """
+    """Настройка системы логирования с учётом ОС и переменной окружения APP_LOG_DIR."""
     logging.getLogger("fast_bitrix24").setLevel(logging.WARNING)
 
-    # Очищаем все хендлеры
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.INFO)
     for handler in root_logger.handlers[:]:
         root_logger.removeHandler(handler)
 
-    # Настраиваем файловый хендлер
-    log_file = Path("logs/app.log")
-    log_dir = log_file.parent
+    env_dir = os.getenv("APP_LOG_DIR")
+    if env_dir:
+        log_dir = Path(env_dir)
+    else:
+        system = platform.system()
+        if system == "Windows":
+            base = Path(
+                os.getenv("LOCALAPPDATA", Path.home() / "AppData" / "Local"),
+            )
+            log_dir = base / "b24-mcp" / "logs"
+        else:
+            log_dir = Path("/var/log/myapp")
+            if not os.access(log_dir, os.W_OK):
+                log_dir = (
+                    Path(
+                        os.getenv(
+                            "XDG_STATE_HOME",
+                            Path.home() / ".local" / "state",
+                        ),
+                    )
+                    / "b24-mcp"
+                    / "logs"
+                )
 
-    if not log_dir.exists():
-        log_dir.mkdir(parents=True, exist_ok=True)
+    log_file = log_dir / "app.log"
+
+    log_dir.mkdir(parents=True, exist_ok=True)
 
     file_handler = RotatingFileHandler(
-        filename=log_file,
+        filename=str(log_file),
         maxBytes=10 * 1024 * 1024,  # 10 MB
         backupCount=5,
         encoding="utf-8",
@@ -49,7 +68,7 @@ def _configure_logging() -> structlog.stdlib.BoundLogger:
     if any("tests" in arg for arg in sys.argv):
         console_handler = logging.StreamHandler(sys.stdout)
         root_logger.addHandler(console_handler)
-        
+
         structlog.configure(
             processors=[
                 *shared_processors,
@@ -80,6 +99,6 @@ logger = _configure_logging()
 def configure_log_level(level: str) -> None:
     """Настройка уровня логирования.
 
-    :param level: Уровень логирования
+    :param level: уровень логирования ("DEBUG", "INFO" и т.д.)
     """
     logging.getLogger().setLevel(level)

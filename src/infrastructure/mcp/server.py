@@ -6,12 +6,10 @@
 from collections.abc import Awaitable, Callable
 
 from mcp.server.fastmcp import FastMCP
-from wireup import service
 
 from src.infrastructure.logging.logger import logger
 
 
-@service
 class BitrixMCPServer:
     """Базовая реализация MCP сервера для интеграции с Bitrix24.
     Предоставляет общую функциональность для работы с Model Context Protocol.

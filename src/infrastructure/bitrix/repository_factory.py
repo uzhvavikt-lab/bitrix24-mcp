@@ -2,19 +2,7 @@
 Предоставляет единую точку доступа к экземплярам репозиториев.
 """
 
-from typing import Annotated
-
-from fast_bitrix24 import Bitrix
-from wireup import Inject, service
-
 from src.domain.interfaces.base_repository import BitrixRepository
-from src.infrastructure.bitrix.bitrix_contact_repository import (
-    BitrixContactRepository,
-)
-from src.infrastructure.bitrix.bitrix_deal_repository import (
-    BitrixDealRepository,
-)
-from src.infrastructure.logging.logger import logger
 
 
 class BitrixRepositoryFactory:
@@ -49,23 +37,3 @@ class BitrixRepositoryFactory:
                 return repository
         msg = f"Неизвестный тип сущности: {entity_type}"
         raise ValueError(msg)
-
-
-@service
-def provide_repository_factory(
-    bitrix_webhook_url: Annotated[str, Inject(param="bitrix_webhook_url")],
-) -> BitrixRepositoryFactory:
-    """Создание фабрики репозиториев Bitrix24.
-
-    :param bitrix_client: Клиент Bitrix24
-    :return: Экземпляр фабрики репозиториев
-    """
-    bitrix_client = Bitrix(bitrix_webhook_url)
-    logger.info("Инициализация фабрики репозиториев Bitrix24")
-    contact_repository = BitrixContactRepository(bitrix_client)
-    return BitrixRepositoryFactory(
-        [
-            contact_repository,
-            BitrixDealRepository(bitrix_client, contact_repository),
-        ],
-    )

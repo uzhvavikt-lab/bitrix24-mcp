@@ -7,9 +7,18 @@ import json
 
 from src.application.services.contact import ContactService
 from src.domain.entities.contact import Contact
-from src.infrastructure.ioc import container
 from src.infrastructure.logging.logger import logger
 from src.infrastructure.mcp.server import BitrixMCPServer
+
+# Создаем экземпляр сервиса контактов
+# В реальном приложении эти зависимости должны предоставляться через DI контейнер
+from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
+from src.infrastructure.ioc import provider
+
+# Получаем зависимости напрямую из провайдера
+bitrix_webhook_url = provider.provide_bitrix_webhook_url()
+repository_factory = provider.provide_repository_factory()
+contact_service = provider.provide_contact_service(repository_factory)
 
 
 def register_contact_handlers(mcp_server: BitrixMCPServer) -> None:
@@ -52,7 +61,6 @@ async def get_contact(
     :param contact_id: Идентификатор контакта
     :return: JSON-строка с данными контакта или сообщение об ошибке
     """
-    contact_service = container.get(ContactService)
     contact = await contact_service.get_contact_by_id(contact_id)
     if not contact:
         return json.dumps({"error": f"Контакт с ID={contact_id} не найден"})
@@ -71,8 +79,6 @@ async def search_contacts(
     :param limit: Максимальное количество результатов
     :return: JSON-строка с результатами поиска
     """
-    contact_service = container.get(ContactService)
-
     if search_type not in ["name", "phone", "email"]:
         return json.dumps(
             {
@@ -102,7 +108,6 @@ async def list_contacts(
     :param company_id: Идентификатор компании для фильтрации (опционально)
     :return: JSON-строка со списком контактов
     """
-    contact_service = container.get(ContactService)
     contacts = await contact_service.list_contacts(limit, company_id)
 
     filter_info = {}
@@ -126,7 +131,6 @@ async def get_contact_resource(
     :param contact_id: Идентификатор контакта
     :return: Строковое представление данных контакта
     """
-    contact_service = container.get(ContactService)
     try:
         contact_id_int = int(contact_id)
     except ValueError:
