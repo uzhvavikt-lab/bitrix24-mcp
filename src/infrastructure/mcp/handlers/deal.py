@@ -74,14 +74,14 @@ async def list_deals(
     active_only: bool = False,
     contact_id: int | None = None,
     company_id: int | None = None,
-    limit: int | None = None,
+    limit: int = -1,
 ) -> str:
     """Получение списка сделок (инструмент).
 
     :param active_only: Только активные сделки
     :param contact_id: Идентификатор контакта для фильтрации (опционально)
     :param company_id: Идентификатор компании для фильтрации (опционально)
-    :param limit: Максимальное количество результатов
+    :param limit: Максимальное количество результатов. По дефолту -1 (получить все сделки)
     :return: JSON-строка со списком сделок
     """
     if limit != -1 and limit <= 0:
@@ -90,8 +90,6 @@ async def list_deals(
                 "error": "Недопустимое значение limit. Используйте -1 (все элементы) или значение больше 0",
             },
         )
-    elif not limit:
-        limit = 50
 
     deals = await deal_service.list_deals(
         active_only,
