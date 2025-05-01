@@ -141,9 +141,14 @@ class BitrixDealRepository(
                 params[self._order_param_name] = {"DATE_CREATE": "DESC"}
 
             if limit > 50 or limit == -1:
-                results: list[dict[str, Any]] = await self.batch_list(
+                results: list[dict[str, Any]] = await self._safe_call(
+                    self.batch_list,
+                    error_message,
+                    [],
                     method=self._bitrix_list_method,
-                    error_message=error_message
+                    params={
+                        self._select_param_name: ["*", "UF_*"]
+                    }
                 )
             else:
                 b_results: dict[str, list] = await self._safe_call(
