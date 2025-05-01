@@ -84,8 +84,15 @@ async def list_deals(
     :param limit: Максимальное количество результатов
     :return: JSON-строка со списком сделок
     """
-    if not limit:
+    if limit != -1 and limit <= 0:
+        return json.dumps(
+            {
+                "error": "Недопустимое значение limit. Используйте -1 (все элементы) или значение больше 0",
+            },
+        )
+    elif not limit:
         limit = 50
+
     deals = await deal_service.list_deals(
         active_only,
         contact_id,

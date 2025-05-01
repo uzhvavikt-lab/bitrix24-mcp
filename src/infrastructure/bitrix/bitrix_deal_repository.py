@@ -140,15 +140,25 @@ class BitrixDealRepository(
             else:
                 params[self._order_param_name] = {"DATE_CREATE": "DESC"}
 
-            b_results: dict[str, list] = await self._safe_call(
-                self._bitrix.call,
-                error_message,
-                {},
-                self._bitrix_list_method,
-                items=params,
-                raw=True,
-            )
-            results = b_results.get("result", [])
+            if limit > 50 or limit == -1:
+                results: list[dict[str, Any]] = await self._safe_call(
+                    self.batch_list,
+                    error_message,
+                    {},
+                    self._bitrix_list_method,
+                    items=params,
+                    raw=True,
+                )
+            else:
+                b_results: dict[str, list] = await self._safe_call(
+                    self._bitrix.call,
+                    error_message,
+                    {},
+                    self._bitrix_list_method,
+                    items=params,
+                    raw=True,
+                )
+                results = b_results.get("result", [])
 
             deals = []
             for deal_data in results[:limit]:
