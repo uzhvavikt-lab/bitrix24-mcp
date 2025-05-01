@@ -5,14 +5,12 @@
 
 import json
 
-from src.application.services.contact import ContactService
 from src.domain.entities.contact import Contact
 from src.infrastructure.logging.logger import logger
 from src.infrastructure.mcp.server import BitrixMCPServer
 
 # Создаем экземпляр сервиса контактов
 # В реальном приложении эти зависимости должны предоставляться через DI контейнер
-from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
 from src.infrastructure.ioc import provider
 
 # Получаем зависимости напрямую из провайдера

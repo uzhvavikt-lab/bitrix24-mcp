@@ -6,14 +6,12 @@
 import json
 from typing import Any
 
-from src.application.services.deal import DealService
 from src.domain.entities.deal import Deal
 from src.infrastructure.logging.logger import logger
 from src.infrastructure.mcp.server import BitrixMCPServer
 
 # Получаем зависимости напрямую из провайдера
 from src.infrastructure.ioc import provider
-from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
 
 # Создаем зависимости напрямую
 repository_factory = provider.provide_repository_factory()
