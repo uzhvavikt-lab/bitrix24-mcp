@@ -150,6 +150,7 @@ class BitrixDealRepository(
                         self._select_param_name: ["*", "UF_*"]
                     }
                 )
+                results = results[:limit] if limit != -1 else results
             else:
                 b_results: dict[str, list] = await self._safe_call(
                     self._bitrix.call,
@@ -160,9 +161,10 @@ class BitrixDealRepository(
                     raw=True,
                 )
                 results = b_results.get("result", [])
+                results = results[:limit]
 
             deals = []
-            for deal_data in results[:limit]:
+            for deal_data in results:
                 try:
                     deal_id = int(deal_data["ID"])
 
