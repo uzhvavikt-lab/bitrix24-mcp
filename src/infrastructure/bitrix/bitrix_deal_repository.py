@@ -145,9 +145,9 @@ class BitrixDealRepository(
                     self.batch_list,
                     error_message,
                     {},
-                    self._bitrix_list_method,
-                    items=params,
-                    raw=True,
+                    method=self._bitrix_list_method,
+                    params=params,
+                    error_message=error_message,
                 )
             else:
                 b_results: dict[str, list] = await self._safe_call(
