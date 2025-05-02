@@ -6,14 +6,12 @@
 import json
 from typing import Any
 
-from src.application.services.deal import DealService
 from src.domain.entities.deal import Deal
 from src.infrastructure.logging.logger import logger
 from src.infrastructure.mcp.server import BitrixMCPServer
 
 # Получаем зависимости напрямую из провайдера
 from src.infrastructure.ioc import provider
-from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
 
 # Создаем зависимости напрямую
 repository_factory = provider.provide_repository_factory()
@@ -76,18 +74,23 @@ async def list_deals(
     active_only: bool = False,
     contact_id: int | None = None,
     company_id: int | None = None,
-    limit: int | None = None,
+    limit: int = -1,
 ) -> str:
     """Получение списка сделок (инструмент).
 
     :param active_only: Только активные сделки
     :param contact_id: Идентификатор контакта для фильтрации (опционально)
     :param company_id: Идентификатор компании для фильтрации (опционально)
-    :param limit: Максимальное количество результатов
+    :param limit: Максимальное количество результатов. По дефолту -1 (получить все сделки)
     :return: JSON-строка со списком сделок
     """
-    if not limit:
-        limit = 50
+    if limit != -1 and limit <= 0:
+        return json.dumps(
+            {
+                "error": "Недопустимое значение limit. Используйте -1 (все элементы) или значение больше 0",
+            },
+        )
+
     deals = await deal_service.list_deals(
         active_only,
         contact_id,

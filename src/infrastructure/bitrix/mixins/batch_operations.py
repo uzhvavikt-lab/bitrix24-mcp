@@ -68,7 +68,6 @@ class BitrixBatchOperationsMixin(BaseMixin):
 
         :param method: Метод API для получения списка
         :param params: Параметры запроса
-        :param batch_size: Размер пакета
         :param error_message: Сообщение при ошибке
         :returns: Список результатов
         """

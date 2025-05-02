@@ -5,14 +5,12 @@
 
 import json
 
-from src.application.services.contact import ContactService
 from src.domain.entities.contact import Contact
 from src.infrastructure.logging.logger import logger
 from src.infrastructure.mcp.server import BitrixMCPServer
 
 # Создаем экземпляр сервиса контактов
 # В реальном приложении эти зависимости должны предоставляться через DI контейнер
-from src.infrastructure.bitrix.repository_factory import BitrixRepositoryFactory
 from src.infrastructure.ioc import provider
 
 # Получаем зависимости напрямую из провайдера
@@ -86,6 +84,13 @@ async def search_contacts(
             },
         )
 
+    if limit != -1 and limit <= 0:
+        return json.dumps(
+            {
+                "error": "Недопустимое значение limit. Используйте -1 (все элементы) или значение больше 0",
+            },
+        )
+
     contacts = await contact_service.search_contacts(query, search_type, limit)
 
     result = {
@@ -108,6 +113,13 @@ async def list_contacts(
     :param company_id: Идентификатор компании для фильтрации (опционально)
     :return: JSON-строка со списком контактов
     """
+    if limit != -1 and limit <= 0:
+        return json.dumps(
+            {
+                "error": "Недопустимое значение limit. Используйте -1 (все элементы) или значение больше 0",
+            },
+        )
+
     contacts = await contact_service.list_contacts(limit, company_id)
 
     filter_info = {}
